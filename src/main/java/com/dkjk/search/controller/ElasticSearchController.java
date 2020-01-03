@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * es 操作
+ * es 操作 控制器
  * @author liubaohua
  * @date 2019-10-29 10:23
  */
