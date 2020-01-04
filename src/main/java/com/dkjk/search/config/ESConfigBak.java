@@ -6,7 +6,6 @@ import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.elasticsearch.client.RestClient;
@@ -28,7 +27,7 @@ import java.util.Objects;
  */
 @Configuration
 @Slf4j
-public class ESConfig {
+public class ESConfigBak {
     private static final int ADDRESS_LENGTH = 2;
     private static final String HTTP_SCHEME = "http";
     //权限验证
@@ -61,14 +60,6 @@ public class ESConfig {
             public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
                 return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
             }
-        }).setRequestConfigCallback(new RestClientBuilder.RequestConfigCallback() {
-            @Override
-            public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
-                requestConfigBuilder.setConnectTimeout(5000);
-                requestConfigBuilder.setSocketTimeout(60000*5);
-                requestConfigBuilder.setConnectionRequestTimeout(5000);
-                return requestConfigBuilder;
-            }
         });
         return restClientBuilder;
     }
@@ -76,7 +67,7 @@ public class ESConfig {
 
     @Bean(name = "highLevelClient")
     public RestHighLevelClient highLevelClient(@Autowired RestClientBuilder restClientBuilder) {
-        //restClientBuilder.setMaxRetryTimeoutMillis(60000*5);
+        //restClientBuilder.setMaxRetryTimeoutMillis(60000);
         return new RestHighLevelClient(restClientBuilder);
     }
 
