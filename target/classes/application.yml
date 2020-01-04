@@ -1,8 +1,0 @@
-server:
-  port: 19001
-
-#es http方式
-elasticsearch:
-  address: localhost:9200
-  username: admin
-  password: admin
